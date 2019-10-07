@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>loading css</title>
+    <link rel="stylesheet" href="../css/loding.css">
+</head>
+<body>
+    
+    <div>
+        <h2>Hello</h2> <br>
+        <h3>There</h3>
+    </div>
+
+    <div class="icon red">
+        <div class="eye">
+            <div class="eyeBail"></div>
+        </div>
+        <div class="mouth">
+
+        </div>
+    </div>
+
+    <div class="icon blue">
+        <div class="eye">
+            <div class="eyeBail"></div>
+        </div>
+        <div class="mouth">
+
+        </div>
+    </div>
+
+    <!-- 遮罩层 -->
+    <div class="pageLoading">
+        <div class="icon red">
+            <div class="eye">
+                <div class="eyeBail"></div>
+            </div>
+            <div class="mouth">
+    
+            </div>
+        </div>
+
+        <div class="loading">
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    var widthPer = 0;
+
+    var time = setInterval(function(){
+        var barWidth = document.getElementsByClassName('bar')[0];
+
+        barWidth.style.width = widthPer + '%';
+        widthPer += 1;
+        if(widthPer > 100)
+        {
+            var barWidth = document.getElementsByClassName('pageLoading')[0];
+            barWidth.className = 'pageLoading complete';
+            clearInterval(time)
+        }
+    },100)
+    
+    </script>
+</body>
+</html>

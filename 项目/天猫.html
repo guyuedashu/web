@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>天猫</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: initial;
+        }
+        li{
+            list-style: none;
+        }
+
+        .title,.titleImg{
+            height: 35px;
+            background-color: rgb(0, 225, 255);
+        }
+        .title .title_left{
+            float: left;
+            font-size: 12px;
+            padding: 0 5px;
+            line-height: 35px;
+            font-family: serif;
+        }
+        .title .title_right{
+            float: right;
+            font-size: 12px;
+            padding: 0 5px;
+            line-height: 35px;
+            font-family: serif;
+        }
+        .content{
+            margin: 0 20px;
+        }
+        .bibao{
+            background: red;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="content">
+        <div class="title">
+            <ul>
+                <li class="title_left"><a>中国大陆</a></li>
+                <li class="title_left" style="color:#f22e00"><a>亲，请登录</a></li>
+                <li class="title_left"><a>免费注册</a></li>
+                <li class="title_left"><a>手机逛淘宝</a></li>
+    
+                <li class="title_right"><a>我的淘宝</a></li>
+                <li class="title_right"><a>购物车</a></li>
+                <li class="title_right"><a>收藏夹</a></li>
+                <li class="title_right"><a>商品分类</a></li>
+                <li class="title_right"><a>千牛卖家中心</a></li>
+                <li class="title_right"><a>联系客服</a></li>
+                
+              
+    
+               
+    
+            </ul>
+        </div>
+        <div class="titleImg"></div>
+    </div>
+   
+
+    <ul>
+        <li class="bibao">q</li>
+        <li class="bibao">q</li>
+
+        <li class="bibao">q</li>
+
+        <li class="bibao">q</li>
+
+
+
+    </ul>
+
+    <script>
+    
+        var liArr = document.getElementsByClassName("bibao");
+        var aa = bb = 9;
+
+        for(var i = 0; i<liArr.length;i++)
+        {
+            (function(k) {
+                liArr[k].onclick = function() {
+                console.log(k)
+            }
+            }(i))
+        } 
+
+        function jiecheng(n) {
+        　　　if(n == 1){
+        　　　　　　return 1;
+        　　　}
+
+    　　return n * jiecheng(n-1);
+        }
+    
+        var sum = (function (n){
+            if(n == 1 )
+            {
+                return 1;
+            }
+            return n * (arguments.callee)(n-1);
+        }(5));
+
+        var arr = [1,2];
+       arr.sort(function (a,b){
+
+           return a - b;
+       })
+　　
+   
+
+    //    圣杯模式，，继承
+    var person = {
+        name : "2222",
+        age : 333
+    }
+    Father.prototype.sex = "女";
+    function Father()
+    {
+
+    }
+    function Son()
+    {
+
+    }
+
+    var inherit = (function (){
+
+        var F = function(){};
+        return function(Target,Origin)
+        {
+            F.prototype = Origin.prototype;
+            Target.prototype = new F();
+            Target.prototype.constuctor = Target;
+            Target.prototype.super = Origin.prototype;
+        }
+    }());
+    inherit(Son,Father);
+
+        Son.prototype.xx = "xxxx";
+
+
+    var son  = new Son();
+    var father = new Father();
+
+   var li = document.getElementsByTagName('li')[0];
+   li.style.width = '100px';
+   li.style.height = '100px';
+   li.style.backgroundColor = 'green';
+
+   li.onclick = function (){
+    li.style.backgroundColor = 'black';
+   }
+
+
+   document.onkeydown = function(e){
+
+       console.log(e)
+   }
+
+
+    </script>
+</body>
+</html>

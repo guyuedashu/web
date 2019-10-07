@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <div id="ss" onclick="">
+            aa
+        </div>
+
+        <button onclick="add()">添加</button>
+        <button onclick="update()">修改</button>
+        <button onclick="getLidt()">huoqu</button>
+
+
+        <script>
+
+            var ss = document.querySelector("#ss");
+            var a = 'wqwqwq';
+            var html = "<div onclick='test('"+a+"')'>qqqqq</div>";
+            ss.innerHTML= html;
+    
+            function test(_a)
+            {
+                    alert(_a);
+            }
+
+            function add()
+            {
+                var id  = new Date().getTime();
+                var desc = id + '好帅';
+                var sex = true;
+                var age = 18;
+                var hobby = ['吃饭','睡觉','打豆豆'] ;
+                var data = {
+                    id:id,
+                    desc : desc,
+                    sex : sex,
+                    age : age,
+                    hobby : hobby
+                }
+                data = JSON.stringify(data);
+                console.log(data)
+                // *************js实现ajax*************
+                // 1 创建 XMLHttpRequest对象
+                // 2 打开链接 XMLHttpRequest.open(method,url,async) 
+                // 　   method:请求方法GET或POST，
+                //      url：服务器的地址
+                //      async : 表示异步请求，可以不写，默认是True，
+                // 3 发送请求 XMLHttpRequest。send()
+                var http = new XMLHttpRequest();
+                http.open('POST','localhost:8086/huge',true);
+                http.setRequestHeader('Content-Type','application/json;charset=UTF-8')
+                http.send(data)
+                http.onreadystatechange = function()
+                {
+                    if(http.readyState == 4 && http.status == 200)
+                    {
+                        console.log(http)
+                        console.log(http.responseText)
+                    }
+                }
+
+
+                 // ***************js实现ajax***********
+
+            }
+
+            function update()
+            {
+                var id  = new Date().getTime();
+                var desc = id + '好帅';
+                var sex = true;
+                var age = 18;
+                var hobby = ['吃饭','睡觉','打豆豆'] ;
+                var data = {
+                    id:id,
+                    desc : desc,
+                    sex : sex,
+                    age : age,
+                    hobby : hobby
+                }
+                data = JSON.stringify(data);
+                var http = new XMLHttpRequest();
+                http.open('PUT','localhost:8086/huge/add/id',true);
+                http.setRequestHeader('Content-Type','application/json;charset=utf-8')
+
+                http.send(data)
+                http.onreadystatechange = function()
+                {
+                    if(http.readyState == 4 && http.status == 200)
+                    {
+                        console.log(http)
+                        console.log(http.responseText)
+                    }
+                }
+            }
+
+            function getLidt()
+            {
+                var http = new XMLHttpRequest();
+                http.open('GET','http://127.0.0.1:8086/huge/hello',true);
+                // http.setRequestHeader('Content-Type','application/json;charset=utf-8')
+
+                http.send(null);
+                http.onreadystatechange = function()
+                {
+                    if(http.readyState == 4 && http.status == 200)
+                    {
+                        console.log(http)
+                        console.log(http.responseText)
+                    }
+                }
+            }
+        </script>
+
+    </body>
+
+</html>
