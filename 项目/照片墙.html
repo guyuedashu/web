@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>照片墙</title>
+    <link rel="stylesheet" href="../css/photoWall.css">
+</head>
+<body>
+    
+    <div class="wrapper">
+        <ul class="liWrapper">
+
+        </ul>
+    </div>
+
+
+    <script type="text/javascript">
+        var liWrapper = document.getElementsByClassName('liWrapper')[0];
+        //原生js获得测css属性，，此方法不兼容 IE6-8  IE6-8 使用 liWrapper.currentStyle
+        var cssObj = window.getComputedStyle(liWrapper,null);
+      
+        var liObj = {
+            liWrapperW : parseInt(cssObj.width),
+            liWrapperH : parseInt(cssObj.height)
+        }
+
+        var liW = liObj.liWrapperW / 5;
+        var liH = liObj.liWrapperH / 5;
+
+
+        init();
+        addEvent();
+        function init(){
+
+            for(var i = 0; i < 5; i++){
+                for(var j = 0; j < 5;j++){
+                    var src = '../img/photoWall/'+(i*5 + j)+'.jpg';
+                   var html = '<img src = '+src+'>';
+                   var li = document.createElement('li');
+                   var div = document.createElement('div');
+                   div.className = "box";
+                   div.innerHTML = html;
+                   
+                   li.style.width = liW + 'px';
+                   li.style.height = liH + 'px';
+                   li.style.left = j*liW + 'px';
+                   li.style.top = i*liH + 'px';
+                   li.style.transform = 'scale(0.9) rotate('+((Math.random()) * 40 - 20)+'deg)' +  
+                   'translateX('+(20*j-15)+'px)' + 
+                   'translateY('+(20*i-15)+'px)' + 
+                   'translateZ(-'+(Math.random() * 500)+'px)';
+
+                //    li.style.heightpx = liH;
+                   li.appendChild(div);
+                   liWrapper.appendChild(li);
+                   
+                }
+            }
+        }
+
+        function addEvent(){
+            
+            var lis = liWrapper.getElementsByTagName('li');
+            for(var i = 0; i<lis.length; i++){
+                lis[i].addEventListener('click',function(){
+
+                    var imgSrc = (this.getElementsByTagName('div')[0].getElementsByTagName('img')[0].src)
+                    lis.forEach(function(index,element) {
+                        console.log(index);
+                    });
+
+
+                },false)
+            }
+        }
+
+    </script>
+</body>
+</html>
