@@ -82,19 +82,19 @@ body{
 
 .menu>li:hover .subMenu li{
     opacity: 1;
-    transform: rotate3d(0,0,0,90deg) ;
+    transform: rotate3d(0,0,0,0deg) ;
     /* 延时 */
     
 }
 .subMenu li:nth-child(1){
-    transition-delay: 0.2s;
+    transition-delay: 0ms;
 }
 .subMenu li:nth-child(2){
-    transition-delay: 0.4s;
+    transition-delay: 300ms;
 }
 .subMenu li:nth-child(3){
-    transition-delay: 0.6s;
+    transition-delay: 900ms;
 }
-.subMenu li:nth-child(8){
-    transition-delay: 0.8s;
+.subMenu li:nth-child(4){
+    transition-delay: 1000ms;
 }
