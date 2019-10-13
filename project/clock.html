@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时钟</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #0e141b;
+        }
+        .wrapper{
+            width: 100%;
+            /* //文本居中  inline */
+            text-align: center;
+            color: wheat;
+        }
+        .wrapper .column,
+        .wrapper .colon{
+            /*inline  默认 bottom 对齐 */
+            display: inline-block;
+            /*上对齐 */
+            vertical-align: top;
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .colon{
+            /* 居中显示 */
+            /* calc 先运算 在付给 css3 */
+            transform: translateY(calc(50vh - 40px));
+        }
+      
+    
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="column">
+                <div>0</div>
+                <div>1</div>
+                <div>2</div>
+        </div>
+        <div class="column ten"></div>
+        <div class="colon">:</div>
+        <div class="column six"></div>
+        <div class="column ten"></div>
+        <div class="colon">:</div>
+        <div class="column six"></div>
+        <div class="column ten"></div>
+    </div>
+    
+    <script type="text/javascript">
+    
+    // 生成dom
+    var sixDom = document.getElementsByClassName('six');
+    var tenDom = document.getElementsByClassName('ten');
+
+    for(var k = 0; k<sixDom.length;k++){
+        for(var i = 0;i<6;i++){
+            var div = document.createElement('div');
+            div.innerText = i;
+            sixDom[k].appendChild(div);
+        }
+    }
+
+    for(var k = 0; k<tenDom.length;k++){
+        for(var i = 0;i<10;i++){
+            var div = document.createElement('div');
+            div.innerText = i;
+            tenDom[k].appendChild(div);
+        }
+    }
+
+   
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>画板</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        html{
+            background: url('../img/drawing.jpg') 0 0 no-repeat;
+            background-size: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wrapper{
+            
+            margin-top: 30px;
+        }
+
+        .wrapper canvas{
+            border: 3px solid blue;
+            border-radius: 25px;
+            box-shadow: 10px 10px 5px #ccc;
+            background-color: #9E9E9E;
+        }
+
+        .wrapper .btn-group{
+            width: 1000px;
+            text-align: center;
+        }
+    
+        .wrapper .btn-group li{
+            display: inline-block;
+            margin: 30px;
+        }
+        .wrapper .btn-group li input{
+            background-color: chartreuse;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            color: blue;
+            /* 去掉button点击时的外边框 */
+            outline: none;
+            cursor: pointer;
+        }
+        .wrapper .btn-group li input:hover{
+            position: relative;
+            top: -3px;
+            border: 1px solid rosybrown;
+            box-shadow: 0 10px 10px #2b2626
+        }
+        .active{
+            background-color: royalblue !important;
+        }
+
+       
+
+    </style>
+
+</head>
+<body>
+
+    <div class="wrapper">
+        <canvas id="drawCavs" width="1000" height="500"></canvas>
+        <ul class="btn-group">
+            <li><input type="color" id="colorBtn" value="color"></li>
+            <li><input type="button" id="cleanAllBtn" value="清屏"></li>
+            <li><input type="button" id="eraserBtn" value="橡皮"></li>
+            <li><input type="button" id="canelBtn" value="撤销"></li>
+            <li><input type="range" id="lineBtn" value="线条" min='1' max='30'></li>
+        </ul>
+        
+    </div>
+    <!-- <canvas id="canvas"></canvas> -->
+
+    <script>
+        // 1、 撤销功能待实现   ，实现橡皮的大小可变化，以及样式问题
+        // 2、实现各种图形的绘制
+        var drawingObj = {
+            cavs : document.getElementById('drawCavs'),
+            context : '',
+            colorBtn : document.getElementById('colorBtn'),
+            cleanAllBtn :  document.getElementById('cleanAllBtn'),
+            eraserBtn :  document.getElementById('eraserBtn'),
+            canelBtn :  document.getElementById('canelBtn'),
+            lineBtn :  document.getElementById('lineBtn'),
+            isDraw : false,
+            isClear : false,
+            snapShot : new CancelDataStack(),
+            init : function(){
+                this.context=this.cavs.getContext('2d')
+                this.draw();
+            },
+            draw : function(){
+                // 进行画图
+                // 拿到鼠标位置  得到画笔的起点
+                 
+                var canvas = this.cavs , 
+                    selfDrawObj = this;
+
+                var element_x = canvas.offsetLeft,
+                    element_y = canvas.offsetTop;
+
+                    console.log("元素left：" + element_x + "元素Top：" + element_y);
+
+                    canvas.addEventListener('mousedown',function(e){
+
+                        
+                        if(selfDrawObj.eraserBtn.className){
+                            
+                            selfDrawObj.isClear = true;
+                        }else{
+                            selfDrawObj.isDraw = true;  //可以开始画
+                        }
+                        
+                        var real_x = e.pageX -  element_x;
+                            real_y = e.pageY -  element_y
+                        console.log("起点X" + real_x + "起点Y" + real_y);
+
+                        selfDrawObj.context.beginPath();//一次起点
+                        selfDrawObj.context.moveTo(real_x,real_y);//起点坐标
+                        
+                        canvas.addEventListener('mousemove',function(e){
+                            if(selfDrawObj.isDraw){
+                                selfDrawObj.context.lineTo(e.pageX - element_x, e.pageY -element_y);
+                                // console.log(" 移动X"+ (e.pageX - element_x) + " 移动Y" + (e.pageY -element_y));
+                                // 设置颜色
+                                selfDrawObj.context.strokeStyle = selfDrawObj.colorBtn.value;
+                                selfDrawObj.context.lineWidth = selfDrawObj.lineBtn.value;
+                                // 填充
+                                // selfDrawObj.context.fill();
+                               
+                                selfDrawObj.context.stroke();
+
+
+                            }else if(selfDrawObj.isClear){
+                                  
+                                selfDrawObj.context.clearRect(e.pageX - element_x, e.pageY -element_y,10,10);
+                            }
+                           
+                        },false)
+                    
+                    },false) 
+
+                    canvas.addEventListener('mouseup',function(e){
+                         
+                            selfDrawObj.snapShot.push(selfDrawObj.context.getImageData(0,0,selfDrawObj.cavs.clientWidth,selfDrawObj.cavs.clientHeight));
+                            console.log(selfDrawObj.snapShot)
+
+                            selfDrawObj.context.closePath();
+                            selfDrawObj.isDraw = false;
+                            selfDrawObj.isClear = false;
+                    },false)
+            }
+        };
+        drawingObj.init();
+
+        // 清屏
+        drawingObj.cleanAllBtn.addEventListener('click',function(){
+           var c = drawingObj
+           console.log(c.cavs.clientWidth)
+            c.context.clearRect(0,0,c.cavs.clientWidth,c.cavs.clientHeight);
+
+        },false);
+        // 橡皮
+        drawingObj.eraserBtn.addEventListener('click',function(){
+            if(!this.className){
+                this.className = 'active';
+            }else{ 
+                this.className = '';
+            }
+
+        },false);
+
+         // 撤销
+         drawingObj.canelBtn.addEventListener('click',function(){
+             if( drawingObj.snapShot.stack.length > 0){
+                var c = drawingObj;
+                // c.context.clearRect(0,0,c.cavs.clientWidth,c.cavs.clientHeight);
+                console.log(drawingObj.snapShot)
+                // console.log(drawingObj.snapShot.pop())s
+                c.context.putImageData(drawingObj.snapShot.pop(),500,500);
+             }
+        
+        },false);
+
+        // 撤销功能实现 用栈来保存一个快照  先进后出
+        function CancelDataStack(){
+            this.stack = [];
+        }
+        CancelDataStack.prototype.push = function(_data){
+            this.stack.push(_data);
+        }
+
+        CancelDataStack.prototype.pop = function(_data){
+           
+            if(this.stack.length > 0){
+                return this.stack.pop();
+            }
+        }
+
+
+
+
+
+        // //1、 画布
+        // var cavs = document.getElementById('canvas');
+        // //2、 上下文对象
+        // var ctx = cavs.getContext('2d');
+    
+        // // moveTo(X,Y);
+        // ctx.moveTo(10,10);
+        // ctx.lineTo(100,10);
+        // ctx.lineTo(100,100);
+        // ctx.lineTo(10,10);
+
+        // // 线条颜色
+        // ctx.strokeStyle = 'blue';
+        // // 线条粗细
+        // ctx.lineWidth = 10;
+        // // 自动闭合
+        // ctx.closePath();
+
+        // ctx.fillStyle = 'blue';
+        // ctx.fill();
+        // // 描边
+        // ctx.stroke();
+        
+        // // 开始新的画笔，，不再影响前面的 颜色和样式
+        // ctx.beginPath();
+
+        // //  复制画笔上像素数据
+        // var img = ctx.getImageData(0,0,200,300);
+        // // 放到指定画布
+        // ctx.putImageData(img,200,100);
+        // // 清除指定画布   左上角定点 width + height
+        // ctx.clearRect(0,0,50,50)
+
+    
+    </script>
+    
+</body>
+</html>
