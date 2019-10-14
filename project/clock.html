@@ -12,6 +12,7 @@
         }
         body{
             background-color: #0e141b;
+            overflow: hidden;
         }
         .wrapper{
             width: 100%;
@@ -25,15 +26,31 @@
             display: inline-block;
             /*上对齐 */
             vertical-align: top;
-            font-size: 50px;
+            font-size: 70px;
             font-weight: bold;
+            line-height: 72px;
         }
         .colon{
             /* 居中显示 */
             /* calc 先运算 在付给 css3 */
-            transform: translateY(calc(50vh - 40px));
+            transform: translateY(calc(50vh - 9px));
         }
-      
+        /* 设置运动效果 */
+        .column{
+            transition: all 300ms ease-in;
+        }
+        .visiable{
+            opacity: 1;
+        }
+        .close{
+            opacity: 0.7;
+        }
+        .far{
+            opacity: 0.3;
+        }
+        .forToo{
+            opacity: 0.1;
+        }
     
     </style>
 </head>
@@ -56,27 +73,101 @@
     
     <script type="text/javascript">
     
-    // 生成dom
-    var sixDom = document.getElementsByClassName('six');
-    var tenDom = document.getElementsByClassName('ten');
+    Index.prototype.createDom = function(){
+        // 生成dom
+        var sixDom = document.getElementsByClassName('six');
+        var tenDom = document.getElementsByClassName('ten');
 
-    for(var k = 0; k<sixDom.length;k++){
-        for(var i = 0;i<6;i++){
-            var div = document.createElement('div');
-            div.innerText = i;
-            sixDom[k].appendChild(div);
+        for(var k = 0; k<sixDom.length;k++){
+            for(var i = 0;i<6;i++){
+                var div = document.createElement('div');
+                div.innerText = i;
+                sixDom[k].appendChild(div);
+            }
+        }
+
+        for(var k = 0; k<tenDom.length;k++){
+            for(var i = 0;i<10;i++){
+                var div = document.createElement('div');
+                div.innerText = i;
+                tenDom[k].appendChild(div);
+            }
         }
     }
+    
+    // 获得
+    Index.prototype.start = function(){
+        var self = this;//注意this指向问题
+        setInterval(function(){
+            var c = self.getCurrentTime();
 
-    for(var k = 0; k<tenDom.length;k++){
-        for(var i = 0;i<10;i++){
-            var div = document.createElement('div');
-            div.innerText = i;
-            tenDom[k].appendChild(div);
-        }
+            self.column.forEach(function(ele,index){
+                // 设置移动距离
+                var offsetTop = c[index] * 72;
+
+                var move = offsetTop + "px";
+                ele.style = 'transform : translateY(calc(50vh - '+move+' - 5px))';
+
+                // 获得孩子
+                var children = ele.children;
+
+                for(var k = 0; k<children.length;k++){
+                    children[k].className = self.getClassName(c[index],k);
+                }
+               
+
+            })
+        },1000)
+    }
+    // 获得当前时间处理  显示问题 补全0   21 22 05
+    Index.prototype.getCurrentTime = function(){
+      var date = new Date();
+      // es6 方法  将数组的遍历，，两个参数
+     //      （function（），total）  
+      return [this.is24Hours ? date.getHours() : date.getHours() % 12 || 12,date.getMinutes(),date.getSeconds()].reduce(function(p,n){
+          
+        return p + ('0' + n).slice(-2);
+
+      },'')
     }
 
-   
+    // 拿到当前 时间对应的显示  className
+
+    Index.prototype.getClassName = function(getCurrentTime,selfTime){
+
+        var classS = this.classList;
+
+        var index = getCurrentTime - selfTime;
+       
+        if(index === 0){
+            return classS[0];
+        }else if(index > -3 && index <  3){
+            return classS[1];
+        }else{
+            return classS[2];
+        }
+
+      
+            
+
+        
+
+        
+    }
+
+
+    // 1、实现 数组与当前时间  对应 当前时间居中显示
+    // 2、设置  样式问题
+    function Index(dom,is24Hours){
+        this.createDom();
+        // 列数组
+        this.column = Array.from(dom);
+        this.is24Hours = is24Hours;
+        // class 当前时间的远近效果显示
+        this.classList = ["visiable","close","far","farToo"];
+    }
+    var sixDom = document.getElementsByClassName('column');
+    new Index(sixDom,true).start();
     
 </script>
 </body>
