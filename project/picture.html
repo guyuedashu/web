@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拼图</title>
+    <style>
+        .wrapper{
+            position: relative;
+            width: 500px;
+            height: 500px;;
+            margin: 50px auto;
+            border:1px solid red;
+        }
+        .start{
+            width: 50px;
+            height: 50px;
+            margin: 20px auto;
+            border:1px solid red;
+            text-align: center;
+            cursor: pointer;
+        }
+        .img{
+            width: 300px;
+            height: 300px;
+            border:1px solid red;
+            margin: 20px auto;
+        }
+        .game{
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+        .game .gameCell{
+            position: absolute;
+            border: 1px solid black;
+            background: url(../img/photoWall/32.jpg);
+            /* transition: all 1s; */
+        }
+    
+    </style>
+
+</head>
+<body>
+    
+    <div class="wrapper">
+        <div class="start">
+            开始
+        </div>
+        <div class="img">
+            <div class="game">
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+        init();
+
+        function init(){
+
+            var game = document.getElementsByClassName('game')[0];
+            // 获取style标签的值  参数一  当前元素，，参数二 ，伪类，，不用时为null,,此方法IE不兼容
+            var style = window.getComputedStyle(game, null);
+
+            var cellW = parseInt(style.width) /3 ;
+            var cellH = parseInt(style.height) /3;
+
+
+            var originArr = [];
+
+            var randomArr = [];
+            var gemeStauts = true;
+         
+
+            imgSplit();
+            addEvent();
+            // 原图的初始化
+            function imgSplit(){
+                for(var i = 0; i<3; i++){
+                    for(var j = 0; j<3; j++){
+                        
+                        var div = document.createElement('div');
+                        div.className = 'gameCell';
+                        div.style.width = cellW +'px';
+                        div.style.height = cellH + 'px';
+                        div.style.top = i*cellH + 'px';
+                        div.style.left = j*cellW +'px';
+
+                        div.style.backgroundPositionX =  -j*cellW +'px';
+                        div.style.backgroundPositionY = -i*cellH + 'px';
+                        game.appendChild(div); 
+                        originArr.push(i*3 + j);
+                        randomArr.push(i*3 + j);
+                    }
+                }
+            }
+
+            // 图片重排
+            function refreshImg(arr){
+                // i*3 + j
+                for(var i = 0 ;i < arr.length; i++){
+                    var current = arr[i];
+
+                    var rowI = Math.floor(current/3);
+                    var colJ = current%3;
+                   
+                    game.children[i].style.top = rowI*cellH + 'px';
+                    game.children[i].style.left = colJ*cellW +'px';
+                }
+            }
+
+            // 事件
+            function  addEvent(){
+                var start = document.getElementsByClassName('start')[0];
+
+                start.addEventListener('click',function(){
+
+                    if(gemeStauts){
+                        start.innerHTML = '复原';
+                        gemeStauts = false;
+                        // 重排
+                        generateArr();
+                        refreshImg(randomArr);
+
+
+                    }else{
+                        start.innerHTML = '开始';
+                        gemeStauts = true;
+                        refreshImg(originArr);
+
+                    }
+
+                },false)
+
+               
+
+                for(var i = 0; i < game.children.length; i++){
+                    game.children[i].addEventListener('mousedown',function(e){
+                        if(!gemeStauts){
+                            // var left = e.pageX
+
+                            originIndex = getIndex(this);
+
+                            var left = e.pageX - this.offsetLeft;
+                            var top = e.pageY - this.offsetTop;
+                            var temp = this;
+
+                            document.addEventListener('mousemove',inner,false)
+
+                            document.addEventListener('mouseup',function(){
+                                // alert()
+                                temp.removeEventListener('mousemove',inner,false)
+
+                                // 获得目标位置
+                                var left2 = temp.style.left;
+                                var top2 = temp.style.top;
+
+                                if(parseInt(left) > 50 || parseInt(top) > 50){
+
+                                    targetIndex = getTarget(parseInt(left2),parseInt(top2));
+                                    console.log(targetIndex)
+                                    cahngeLocation(originIndex,targetIndex);
+
+                                }else{
+                                    cahngeLocation(originIndex,null);
+                                }
+                                temp.style.zIndex = 0;
+
+                                console.log(left +'--------'+top)
+
+                        
+
+                                    
+                            },false)   
+
+                            function inner(e1){
+                                temp.style.left = (e1.pageX - left) + 'px';
+                                temp.style.top = (e1.pageY - top) + 'px';
+                                temp.style.zIndex = 50;
+                            }
+                        }
+                    },false)
+
+                }
+            }
+
+            // 随机数组
+            function generateArr(){
+
+                randomArr.sort(function(){
+
+                    return 0.5 - Math.random();
+                });
+                console.log(randomArr)
+
+            }
+
+            // 校验
+            function check(){
+                if(originArr.toString === randomArr.toString){
+
+                    alert('成功');
+                }
+            }
+
+            // 交换 位置并且改变数组值，，
+            function cahngeLocation(orginIndex,targetIndex){
+                console.log(orginIndex,targetIndex)
+                if(targetIndex === 0 || targetIndex){
+                  
+                    var orginIndex = randomArr.indexOf(orginIndex);
+                      
+                    var rowI = Math.floor(orginIndex/3);
+                    var colJ = orginIndex%3;
+
+                    game.children[orginIndex].style.top = rowI*cellH + 'px';
+                    game.children[orginIndex].style.left = colJ*cellW +'px';
+
+                    var targetIndex = randomArr.indexOf(targetIndex);
+                    
+                    var rowI = Math.floor(targetIndex/3);
+                    var colJ = targetIndex%3;                  
+
+                    game.children[targetIndex].style.top = rowI*cellH + 'px';
+                    game.children[targetIndex].style.left = colJ*cellW +'px';
+
+                    var temp = randomArr[targetIndex];
+                    randomArr[targetIndex] = randomArr[orginIndex];
+                    randomArr[orginIndex] = temp;
+                    
+
+                }else{
+
+                   
+                   var index = randomArr.indexOf(orginIndex);
+                      
+                    var rowI = Math.floor(orginIndex/3);
+                    var colJ = orginIndex%3;
+
+                    game.children[index].style.top = rowI*cellH + 'px';
+                    game.children[index].style.left = colJ*cellW +'px';
+
+                }
+
+            }
+
+            // 获得index 对应数组的 arr[index]
+            function getIndex(dom){
+
+                var leftJ = parseInt(dom.style.left);
+                var topI = parseInt(dom.style.top);
+
+                // 推出 i J
+                function IJ(_data){
+                    var temp ;
+                    switch(_data){
+
+                        case 0 : temp = 0;break;
+                        case 100 : temp = 1;break;
+                        case 200 : temp = 2;break;
+                    }
+                    return temp;
+                }
+                
+                leftJ = IJ(leftJ);
+                topI = IJ(topI);
+
+                return topI*3 + leftJ;
+
+            }
+
+            // 目标
+            function getTarget(_left,_top){
+                var i ,j;
+
+                if(_left >= 0 && _left <= 100){
+                    j = 0;
+                }
+
+                if(_left > 100 && _left <= 200){
+                    j = 1;
+                }
+
+                if(_left > 200 && _left <= 300){
+                    i = 2;
+                }
+
+                if(_top >= 0 && _top <= 100){
+                    i = 0;
+                }
+
+                if(_top > 100 && _top <= 200){
+                    j = 1;
+                }
+
+                if(_top > 200 && _top <= 300){
+                    i = 2;
+                }
+
+                return i*3+j;
+            }
+
+
+
+
+        }
+
+    </script>
+</body>
+</html>

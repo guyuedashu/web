@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>瀑布流</title>
+    <style>
+        #water{
+            position: relative;
+            outline: 1px solid red;
+            width: 90%;
+            margin: 20px auto;
+        }
+        /* 过度效果  所有css 属性 */
+        #water img{
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="water"></div>
+    <script type="text/javascript" src="js/waterFall.js"></script>
+    <script type="text/javascript">
+
+        var dom = document.getElementById('water');
+
+        var arr = [];
+
+        for(var i = 0; i<30; i++){
+            var src = '../img/photoWall/'+i+'.jpg';
+            arr.push(src);
+        }
+        
+        createWaterFall(dom,arr,300);
+
+    </script>
+</body>
+</html>

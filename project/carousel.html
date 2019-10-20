@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+
+    <style>
+    
+        #carousel{
+            width: 500px;;
+            height: 200px;
+            /* border  外边距  占据盒子内容 */
+            /* border: 1px solid red; */
+            /* 不占据  盒子内容 */
+            outline: 10px solid black;
+            margin: 50px auto;
+        }
+    
+    </style>
+
+</head>
+<body>
+
+    <div id="carousel">
+
+
+    </div>
+    <script type="text/javascript" src='js/carousel.js'></script>
+    <script type="text/javascript">
+    var dom = document.getElementById('carousel');
+    generateCarousel(carousel,[
+        {imgUrl : '../img/photoWall/0.jpg',linlinkSrc : 'www.baidu.com'},
+        {imgUrl : '../img/photoWall/1.jpg',linlinkSrc : 'www.baidu.com'},
+        {imgUrl : '../img/photoWall/2.jpg',linlinkSrc : 'www.baidu.com'},
+        {imgUrl : '../img/photoWall/3.jpg',linlinkSrc : 'www.baidu.com'}
+
+    ],{changeTime:'2000',isClear:false})
+    
+    </script>    
+</body>
+</html>

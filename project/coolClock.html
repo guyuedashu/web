@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>酷炫时钟</title>
+
+    <style>
+    
+        canvas{
+            border: 1px solid red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -250px;
+            margin-left: -250px;;
+        }
+    
+    </style>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="500" height="500"></canvas>
+    
+    <script type="text/javascript">
+
+       
+        var cavs = document.getElementById('canvas');
+        // 上下文对象
+        var context = cavs.getContext('2d');
+        // 描边颜色
+        context.strokeStyle = '#00ffff';
+        // 笔的粗细
+        context.lineWidth = 17;
+        // 阴影 偏移
+        context.shadowBlur = 15;
+        // 阴影 颜色
+        context.shadowColor = '#00ffff';
+
+        function generateTime(){
+
+
+            var date = new Date();
+            // 年月日
+            var today = date.toDateString();
+            var hour = date.getHours();
+            var second = date.getSeconds();
+            var minutes = date.getMinutes();
+            var ms = date.getMilliseconds();
+
+            var rs = second + ms /1000;
+            // 1、背景  2、圆弧  3、日期
+
+            // createRadialGradient（起点X ，起点Y， 半径，终点X ，终点Y， 半径，）中间用addColorStop(0,'#03303a');填充
+            gradient = context.createRadialGradient(250,250,5,250,250,300);
+
+            gradient.addColorStop(0,'#03303a');
+            // gradient.addColorStop(0.5,'green');/
+            gradient.addColorStop(1,'#000');
+            // 背景
+            context.fillStyle = gradient;
+            context.fillRect(0,0,500,500);
+
+            // 起始笔
+            context.beginPath()
+            // 画园 arc 圆心  半径  起点弧度，，终点弧度
+            context.arc(250,250,200,degToRadian(270),degToRadian(hour * 30 - 90) );
+            context.stroke();
+
+            context.beginPath()
+            // 画园 arc 圆心  半径  起点弧度，，终点弧度
+            context.arc(250,250,170,degToRadian(270),degToRadian(minutes * 6 - 90) );
+            context.stroke();
+
+
+            context.beginPath()
+            // 画园 arc 圆心  半径  起点弧度，，终点弧度
+            context.arc(250,250,130,degToRadian(270),degToRadian(rs * 6 - 90) );
+            context.stroke();
+
+            context.font = '25px Helvetica';
+            context.fillStyle = 'rgba(0,255,255,1)';
+            context.fillText(today,175,250);
+
+            // context.font = '25px Helvetica';
+            context.fillStyle = 'rgba(0,255,255,1)';
+            context.fillText(hour + ':' + minutes + ':' + second + ':' + ms,175,280);
+
+
+        }
+        setInterval(generateTime,40)
+        
+      
+    //   角度换弧度   弧度 = 派 / 180 * 角度
+      function degToRadian(deg){
+
+          return Math.PI / 180 * deg;
+      }
+
+
+    
+    
+    </script>
+</body>
+
+
+</html>
