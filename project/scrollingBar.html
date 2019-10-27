@@ -61,7 +61,7 @@
     </div>
 
     <div class="if" >
-        <iframe src="./double.html" width="200px" height="300px"></iframe>
+        <iframe src="http://guyuedashu.github.io/web/project/double.html" width="200px" height="300px"></iframe>
     </div>
 
 
@@ -74,9 +74,9 @@
 
     var im  = this.getElementsByTagName('iframe');
    
-    var doc = im[0].ownerDocument;
+    var doc = im[0].contentWindow.document;
     console.log(doc)
-    doc.getElementsByClassName('.footer').click();
+    doc.getElementsByClassName('.footer')[0].click();
 
   },true)
         
