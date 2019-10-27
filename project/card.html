@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>贺卡</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 126, 104, 0.8);
+            font-family:cursive;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            /* background-color: ; */
+            padding: 5%;
+            border: 1px solid black;
+            /* 盒子模型  content + padding + border
+                content-box：以content为边界，宽高仅仅是内容的宽高，再给padding或者border是向外，所以盒模型的宽高是变大的
+             */
+            box-sizing: border-box;
+        }
+
+        .left,
+        .middle,
+        .right {
+            position: relative;
+            width: 33%;
+            height: 100%;
+            /* padding: 10px; */
+            float: left;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            transition: all 0.7s ease-in-out;
+          
+
+        }
+
+        .left .page,
+        .left .back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: #fff;
+            border-radius: 10px;
+            /* top: 0; */
+
+        }
+
+        .left {
+            transform: rotateY(180deg);
+            transform-origin: 100% 50%;
+            z-index: 20;
+        }
+
+        .right {
+            transform: rotateY(-180deg);
+            transform-origin: 0 50%;
+        }
+
+        .left .page {
+            z-index: 5;
+            transform: rotateY(180deg);
+        }
+
+        .left .back {
+            z-index: 4;
+        }
+
+        .left.open {
+            transform: rotateY(0);
+            transform-origin: 100% 50%;
+            transition: all 0.5s ease-in-out;
+        }
+        
+
+        .right.open {
+            transform: rotateY(0);
+            transform-origin: 0 50%;
+            transition: all 0.7s ease-in-out;
+        }
+
+        .back.open {
+            z-index: 10;
+        }
+        .btn-more{
+            position: absolute;
+            left: 1%;
+            bottom: 5%;
+        }
+        .preview{
+            max-height: 80px;
+            overflow: hidden;
+            position: relative;
+        }
+        .preview::before{
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(transparent,#fff);
+        }
+        .sectionWrapper{
+            padding: 10px;
+            font-size: 18px;
+        }
+        button{
+            border: none;
+            padding: 5px;
+            background-color: rgba(109, 35, 46, 0.05);
+
+        }
+        .btn-more:hover,.btn-close:hover{
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+        .btn-close{
+            position: absolute;
+            right: 2%;;
+            top: 1%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="left">
+            <div class="page">
+                <div class="sectionWrapper">
+                    <h1>我是首页</h1>
+                    <p class="preview">你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                        ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                        ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+
+                    </p>
+                </div>
+                <button class="btn-more">Leaner more</button>
+            </div>
+            <div class="back">
+                <div class="sectionWrapper">
+                    <h1>我是left</h1>
+                    <p>
+                            你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                            你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                            ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+                            你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                            你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                            ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+    
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="middle">
+            <div class="sectionWrapper">
+                <h1>我是right</h1>
+                <p>
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                        ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                        ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+
+                </p>
+            </div>
+
+        </div>
+        <div class="right">
+            <div class="sectionWrapper">
+                <h1>我是right</h1>
+                <p>
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                        ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，
+                        你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；
+                        ，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲爱的；你好吗，，我的亲
+
+                </p>
+            </div>
+            <button class="btn-close">X</button>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var left = document.getElementsByClassName('left')[0];
+        var right = document.getElementsByClassName('right')[0];
+        var back = document.getElementsByClassName('back')[0];
+
+
+        var btn = document.getElementsByClassName('btn-more')[0];
+        var btnC = document.getElementsByClassName('btn-close')[0];
+
+        btn.addEventListener('click', function () {
+            left.classList.add('open');
+            setTimeout(function () {
+                right.classList.add('open');
+                back.classList.add('open');
+            }, 500)
+
+        }, false)
+
+        btnC.addEventListener('click', function () {
+            right.classList.remove('open');
+            setTimeout(function () {
+                left.classList.remove('open');
+                back.classList.remove('open');
+            }, 500)
+
+        }, false)
+
+
+    </script>
+
+</body>
+
+</html>

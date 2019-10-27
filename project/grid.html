@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>网格-flex布局</title>
+
+    <style>
+    
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .btn-group{
+            /* 网格布局
+            常见的容器属性
+                grid-template-columns: 100px 100px 100px表示创建三列,每列的宽度是100px
+                3、grid-template-columns: repeat(3, 1fr)表示创建三列,每列平均分配
+                4、grid-template-columns: 150px 100px 50px 1fr;表示创建四列,最后一列占全部剩余的位置
+                5、grid-template-rows: 50px 50px表示创建两行,每行的高度是50px
+                6、行其他的也可以跟列一样的
+                7、grid-gap: 1px;表示每个项目之间的间隙   
+            常见的项目属性
+                1、grid-column-start: 1;表示该项目所开始的位置(从最左边开始)
+                2、grid-column-end: 4;表示该项目所结束的位置
+                3、上面1和2的简写可以是grid-column: 1 / 4;
+                4、grid-row-start: 2;类似上面的列的处理一样的
+                5、grid-row-end: 4;
+
+             */
+
+             
+            display: grid;
+            grid-template-columns: 40px 40px 40px;
+            grid-template-rows: 30px 30px 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <ul class="btn-group">
+        <li><input type="button" value="左上"></li>
+        <li><input type="button" value="向上"></li>
+        <li><input type="button" value="右上"></li>
+        <li><input type="button" value="向左"></li>
+        <li><input type="button" value="停止"></li>
+        <li><input type="button" value="向右"></li>
+        <li><input type="button" value="左下"></li>
+        <li><input type="button" value="向下"></li>
+        <li><input type="button" value="右下""></li>
+    </ul>
+    
+</body>
+</html>

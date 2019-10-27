@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>布局，绝对定位</title>
+    <title>布局，圣杯模式</title>
     <style>
         * {
             margin: 0;
@@ -18,36 +18,33 @@
         }
         #container{
             /* width: 100%; */
-         
+            padding: 0 150px 0 200px;
             height: 500px;
             background-color:gold;
-            position: relative;
         }
         .column{
-            position: absolute;
+            float: left;
             height: 100%;
-            top: 0;
-           
+            position: relative;
         }
         #center{
-            margin:0 150px 0 200px;
-            /* width: 100%; */
+            width: 100%;
             background-color: hotpink;
-            height: 100%;
         }
 
         #right{
-            right: 0;
+            left: 150px;
             width:150px;
             background-color: blue;
-        
+            margin-left: -150px;
 
         }
         #left{
-            left: 0;
+            left: -200px;
             width:200px;
             background-color: royalblue;
-           
+            margin-left: -100%;
+
         }
 
     </style>
@@ -57,7 +54,7 @@
 <body>
         <div id="header">header</div>
         <div id="container">
-          <div id="center" class="">center</div>
+          <div id="center" class="column">center</div>
           <div id="left" class="column">left</div>
           <div id="right" class="column">right</div>
         </div>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>布局，绝对定位</title>
+    <title>双飞翼</title>
     <style>
-        * {
+     
+        *{
             margin: 0;
             padding: 0;
         }
@@ -17,52 +17,46 @@
             text-align: center;
         }
         #container{
-            /* width: 100%; */
-         
             height: 500px;
             background-color:gold;
-            position: relative;
         }
         .column{
-            position: absolute;
+            float: left;
             height: 100%;
-            top: 0;
-           
+     
         }
         #center{
-            margin:0 150px 0 200px;
-            /* width: 100%; */
+            width: 100%;
             background-color: hotpink;
-            height: 100%;
         }
 
         #right{
-            right: 0;
+         
             width:150px;
             background-color: blue;
-        
+            margin-left: -150px;
 
         }
         #left{
-            left: 0;
+            /* left: -200px; */
             width:200px;
             background-color: royalblue;
-           
+            margin-left: -100%;
+
+        }
+        .sub{
+            margin: 0 150px 0 200px;
         }
 
     </style>
-
 </head>
-
 <body>
         <div id="header">header</div>
         <div id="container">
-          <div id="center" class="">center</div>
+          <div id="center" class="column"><div class="sub">center</div></div>
           <div id="left" class="column">left</div>
           <div id="right" class="column">right</div>
         </div>
-        <div id="footer">footer</div>
-
+        <div id="footer" onclick="alert(111)">footer</div>
 </body>
-
 </html>

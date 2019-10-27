@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js 实现滚动条</title>
+    <style>
+        .wrapper {
+            position: relative;
+            width: 500px;
+            /* height: 500px; */
+            border: 1px solid red;
+            margin: 50px auto;
+            font-size: 100px;
+
+
+        }
+
+        .scroll {
+            position: absolute;
+            width: 10px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.38);
+            border-radius: 5px;
+            top: 0px;
+            left: ;
+
+        }
+
+        .scroll .bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* height: 20px; */
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+        }
+        .con{
+            position: relative;
+        }
+        .if{
+            width: 500px;
+            height: 500px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- 内容去区 -->
+        <div class="con">
+                wrapperwrapperwrapperwrap萨达萨达撒多perwrapperw阿斯顿撒多rapperwrapperwrapperwrapperwrapperwrapperwrapperwrapper
+                安达市多奥术大师大
+                wrapperwrapperwrapper奥术大萨达wrapperwrapp阿斯顿撒大所多erwrapperwrappe敖德萨多rwrapperwrapperwrapperwrapper
+        </div>
+    </div>
+
+    <div class="if" >
+        <iframe src="./double.html" width="200px" height="300px"></iframe>
+    </div>
+
+
+    <!-- <div class="scroll">
+        <div class="bar"></div>
+    </div> -->
+    <script type="text/javascript">
+  var ifs = document.getElementsByClassName('if')[0];
+  ifs.addEventListener('click',function(){
+
+    var im  = this.getElementsByTagName('iframe');
+   
+    var doc = im[0].ownerDocument;
+    console.log(doc)
+    doc.getElementsByClassName('.footer').click();
+
+  },true)
+        
+
+        var dom = document.getElementsByClassName('wrapper')[0];
+        var con = document.getElementsByClassName('con')[0];
+
+        /**
+        * _dom : 需要滚动的元素
+        * option ：可选{
+        *                   height:,
+        *                   width:,
+        *                   
+        *              }
+        *
+        */
+        scrolling(dom, { height: '300px' })
+        function scrolling(_dom, option) {
+
+
+            //生成元素
+            var scroll = document.createElement('div'),
+                bar = document.createElement('div');
+                
+
+            scroll.classList.add('scroll');
+            scroll.appendChild(bar);
+            scroll.style.height = option.height;
+            bar.classList.add('bar');
+
+            var height = Math.floor(parseInt(option.height) / _dom.offsetHeight * parseInt(option.height));
+            var scrollArea = parseInt(option.height) - height,//可滚动的高度 可移动高度
+                contentArea = _dom.offsetHeight - parseInt(option.height);//内容的隐藏高度  可移动高度
+
+            console.log(height)
+            _dom.style.overflow = 'hidden';
+            _dom.style.height = option.height;
+
+            _dom.appendChild(scroll);
+
+            bar.style.height = height + 'px';
+
+           
+
+
+            //拖拽
+            addDragEvent();
+
+            function addDragEvent() {
+                bar.onmousedown = function (e) {
+                    var startTop = e.pageY;
+                    var c = bar.offsetTop;
+
+                    document.onmousemove = function (e1) {
+                        var diff = e1.pageY - startTop;
+                        console.log(diff)
+                        console.log(bar.offsetTop)
+                        
+                        if(diff > 0 ){
+                            bar.style.top = diff + c  +'px';
+                           if(bar.offsetTop + height >= parseInt(option.height)){
+                                bar.style.top = parseInt(option.height) - height + 'px';
+                           }
+                           
+                        }else{
+                            bar.style.top = diff + c +'px';
+                            if(bar.offsetTop + diff <= 0){
+                                bar.style.top = '0px';
+                            }
+                        }
+
+                        goContent(bar)
+             
+                        bar.onmouseup = function () {
+
+                            document.onmousemove = null;
+                        }
+                    }
+
+                }
+            }
+
+            // 移动内容
+            function goContent(bar){
+
+                var persent = Math.floor(contentArea / scrollArea * bar.offsetTop);
+                con.style.top = - persent + 'px';
+
+            }
+        }
+
+        (function () {
+            console.log('start init');
+
+        }());
+
+    </script>
+</body>
+
+</html>

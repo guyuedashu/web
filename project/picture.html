@@ -7,7 +7,7 @@
     <title>拼图</title>
     <style>
         .wrapper{
-            position: relative;
+            /* position: relative; */
             width: 500px;
             height: 500px;;
             margin: 50px auto;
@@ -20,6 +20,7 @@
             border:1px solid red;
             text-align: center;
             cursor: pointer;
+            perspective: 600px;
         }
         .img{
             width: 300px;
@@ -38,6 +39,34 @@
             background: url(../img/photoWall/32.jpg);
             /* transition: all 1s; */
         }
+        .box-img{
+            width: 300px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            background: aqua;
+            position: absolute;
+            transition: all 0.5s ease-in;
+          
+        }
+        .box-con{
+            width: 300px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            transform: rotateY(90deg);
+            transition: all 0.5s ease-in;
+        }
+        .game:hover .box-img{
+            transform: rotateY(90deg);
+        }
+        .game:hover .box-con{
+            transform: rotateY(0deg);
+        }
+
     
     </style>
 
@@ -54,10 +83,22 @@
             </div>
         </div>
     </div>
+    <div class="game">
+        <div class="box-img"></div>
+        <div class="box-con">
+            <hr/>
+            <p>
+                你好，，我的家族上课时间打卡的课件撒打卡上空间的阿三大苏打实打实大苏打撒旦撒旦撒大苏打撒旦
+            </p>
+        </div>
+
+
+    </div>
+    
     <script type="text/javascript">
 
 
-        init();
+        // init();
 
         function init(){
 
@@ -71,7 +112,8 @@
 
             var originArr = [];
 
-            var randomArr = [];
+            var randomArr = [],
+                arr = [];
             var gemeStauts = true;
          
 
@@ -94,6 +136,7 @@
                         game.appendChild(div); 
                         originArr.push(i*3 + j);
                         randomArr.push(i*3 + j);
+                       
                     }
                 }
             }
@@ -109,6 +152,9 @@
                    
                     game.children[i].style.top = rowI*cellH + 'px';
                     game.children[i].style.left = colJ*cellW +'px';
+                    game.children[i].indexP = arr[i];
+                    // arr.push( game.children[i])
+
                 }
             }
 
@@ -142,34 +188,33 @@
                         if(!gemeStauts){
                             // var left = e.pageX
 
-                            originIndex = getIndex(this);
+                            originIndex =this.indexP;
 
-                            var left = e.pageX - this.offsetLeft;
-                            var top = e.pageY - this.offsetTop;
+                            var left = e.pageX - game.offsetLeft - this.offsetLeft;
+                            var top = e.pageY - game.offsetTop - this.offsetTop;
                             var temp = this;
 
                             document.addEventListener('mousemove',inner,false)
 
-                            document.addEventListener('mouseup',function(){
+                            temp.addEventListener('mouseup',function(e1){
                                 // alert()
-                                temp.removeEventListener('mousemove',inner,false)
+                                document.removeEventListener('mousemove',inner,false);
 
-                                // 获得目标位置
-                                var left2 = temp.style.left;
-                                var top2 = temp.style.top;
+                                var targetX = e1.pageX - game.offsetLeft;
+                                var targetY = e1.pageY - game.offsetTop;
 
-                                if(parseInt(left) > 50 || parseInt(top) > 50){
+                               
+                                var targetIndex = getTargetIndex(targetX, targetY, originIndex);
 
-                                    targetIndex = getTarget(parseInt(left2),parseInt(top2));
-                                    console.log(targetIndex)
+                                console.log(targetX +'--------'+targetY)
+                                console.log(originIndex +'--------'+targetIndex)
                                     cahngeLocation(originIndex,targetIndex);
-
-                                }else{
-                                    cahngeLocation(originIndex,null);
-                                }
+                            
+                
+                               
                                 temp.style.zIndex = 0;
 
-                                console.log(left +'--------'+top)
+                              
 
                         
 
@@ -177,8 +222,8 @@
                             },false)   
 
                             function inner(e1){
-                                temp.style.left = (e1.pageX - left) + 'px';
-                                temp.style.top = (e1.pageY - top) + 'px';
+                                temp.style.left = (e1.pageX - left) - game.offsetLeft+ 'px';
+                                temp.style.top = (e1.pageY - top) -game.offsetTop + 'px';
                                 temp.style.zIndex = 50;
                             }
                         }
@@ -207,101 +252,60 @@
             }
 
             // 交换 位置并且改变数组值，，
-            function cahngeLocation(orginIndex,targetIndex){
-                console.log(orginIndex,targetIndex)
-                if(targetIndex === 0 || targetIndex){
+            function cahngeLocation(_o,_t){
+                console.log(arr)
+                var i = Math.floor(_o / 3),
+                  j = _o % 3,
+                  temp;
+                  var indexO = randomArr.indexOf(_o);
+                  var indexT = randomArr.indexOf(_t);
+ 
+              if (_o === _t) {
+                 
+                  setPosition(i, j, game.children[indexO]);
                   
-                    var orginIndex = randomArr.indexOf(orginIndex);
-                      
-                    var rowI = Math.floor(orginIndex/3);
-                    var colJ = orginIndex%3;
+                  
 
-                    game.children[orginIndex].style.top = rowI*cellH + 'px';
-                    game.children[orginIndex].style.left = colJ*cellW +'px';
+                  return;
+              }
 
-                    var targetIndex = randomArr.indexOf(targetIndex);
-                    
-                    var rowI = Math.floor(targetIndex/3);
-                    var colJ = targetIndex%3;                  
 
-                    game.children[targetIndex].style.top = rowI*cellH + 'px';
-                    game.children[targetIndex].style.left = colJ*cellW +'px';
+ 
+              var _tI = Math.floor(_t / 3),
+                  _tJ = _t % 3;
+ 
+            setPosition(i, j, game.children[indexT]);
+            game.children[indexT].indexP = _o;
+ 
+              setPosition(_tI, _tJ, game.children[indexO]);
+              game.children[indexO].indexP = _t;
 
-                    var temp = randomArr[targetIndex];
-                    randomArr[targetIndex] = randomArr[orginIndex];
-                    randomArr[orginIndex] = temp;
-                    
-
-                }else{
-
-                   
-                   var index = randomArr.indexOf(orginIndex);
-                      
-                    var rowI = Math.floor(orginIndex/3);
-                    var colJ = orginIndex%3;
-
-                    game.children[index].style.top = rowI*cellH + 'px';
-                    game.children[index].style.left = colJ*cellW +'px';
-
-                }
+              temp = randomArr[indexO];
+              randomArr[indexO] = randomArr[indexT];
+              randomArr[indexT] = temp;
 
             }
 
             // 获得index 对应数组的 arr[index]
-            function getIndex(dom){
+            function getTargetIndex(_x, _y, _originIndex) {
+              if (_x < 0 || _x > 300 || _y < 0 || _y > 300) {
+                  return _originIndex;
+              }
+ 
+              var l = Math.floor(_x / 100),
+                  t = Math.floor(_y / 100);
+ 
+              var targetIndex = t * 3 + l;
+ 
+              return targetIndex;
+          }
 
-                var leftJ = parseInt(dom.style.left);
-                var topI = parseInt(dom.style.top);
+           
 
-                // 推出 i J
-                function IJ(_data){
-                    var temp ;
-                    switch(_data){
-
-                        case 0 : temp = 0;break;
-                        case 100 : temp = 1;break;
-                        case 200 : temp = 2;break;
-                    }
-                    return temp;
-                }
-                
-                leftJ = IJ(leftJ);
-                topI = IJ(topI);
-
-                return topI*3 + leftJ;
-
-            }
-
-            // 目标
-            function getTarget(_left,_top){
-                var i ,j;
-
-                if(_left >= 0 && _left <= 100){
-                    j = 0;
-                }
-
-                if(_left > 100 && _left <= 200){
-                    j = 1;
-                }
-
-                if(_left > 200 && _left <= 300){
-                    i = 2;
-                }
-
-                if(_top >= 0 && _top <= 100){
-                    i = 0;
-                }
-
-                if(_top > 100 && _top <= 200){
-                    j = 1;
-                }
-
-                if(_top > 200 && _top <= 300){
-                    i = 2;
-                }
-
-                return i*3+j;
-            }
+            function setPosition(_i, _j, _dom) {
+              _dom.style.left = _j * 100 + 'px';
+              _dom.style.top = _i * 100 + 'px';
+          }
 
 
 
