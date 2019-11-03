@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转菜单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            outline: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #045, #002);
+            /* background: linear-gradient(); */
+
+        }
+
+        .selector {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            /* margin-top: -100px;
+            margin-left: -100px; */
+
+        }
+
+        .selector button {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 14px #0cf inset;
+            color: #fff;
+            transition: all 0.5s ease-in-out;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .selector ul {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            /* border: 1px solid red; */
+        }
+
+        .selector ul li {
+
+            position: absolute;
+            width: 0;
+            height: 0;
+            transition: all 0.8s ease-in-out;
+
+        }
+
+        .selector button:hover {
+            box-shadow: 0 0 14px rgb(115, 202, 16) inset;
+
+        }
+
+        .selector ul li input {
+            display: none;
+        }
+
+        .selector ul li label {
+            display: block;
+            width: 0;
+            height: 0;
+            margin-left: 55px;
+            margin-top: -67px;
+            line-height: 0;
+            font-size: 0;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: all 0.8s ease-in-out;
+            overflow: hidden;
+            opacity: 0;
+
+
+
+        }
+
+        .selector.open ul li {
+            /* display: block; */
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .selector.open ul li label {
+
+            width: 60px;
+            height: 60px;
+            font-size: 14px;
+            line-height: 60px;
+            opacity: 1;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="selector">
+        <ul>
+            <li>
+                <input type="checkbox" id="input_1"><label for="input_1">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_2"><label for="input_2">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_3"><label for="input_3">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_4"><label for="input_4">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_5"><label for="input_5">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_6"><label for="input_6">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_7"><label for="input_7">怎么讲</label> </li>
+            <li>
+                <input type="checkbox" id="input_8"><label for="input_8">怎么讲</label> </li>
+        </ul>
+        <button onclick="changeClass(this)">点我</button>
+    </div>
+    <script type="text/javascript">
+        var lis = document.getElementsByTagName('li'),
+            selector = document.getElementsByClassName('selector')[0],
+            len = lis.length,
+            deg = 360 / len;
+        function changeClass(ele) {
+            // alert()
+            var isOpen = hasClassName(selector, 'open');
+            console.log(isOpen)
+            if (!isOpen) {
+
+                selector.classList.add('open');
+
+            }
+
+            for (var i = 0; i < len; i++) {
+                var degItem = (deg * i) + 'deg';
+                if (isOpen) {
+
+
+                    rorate(lis[i], "-" + degItem)
+                } else {
+
+
+                    rorate(lis[i], degItem)
+                }
+            }
+
+            if (isOpen) {
+
+                selector.classList.remove('open');
+
+            }
+
+        }
+        function rorate(dom, deg) {
+
+            dom.style.transform = 'rotate(' + deg + ')';
+
+            var label = dom.getElementsByTagName('label')[0];
+            label.style.transform = 'rotate(-' + deg + ')';
+        }
+
+        function hasClassName(_dom, _name) {
+            var list = _dom.classList;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i] == _name) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery 分页插件</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+        .page {
+            width: 500px;
+            height: 300px;
+            border: 1px solid red;
+            margin: 50px auto;
+        }
+        .page a,.page span{
+            display: inline-block;
+            color:#795548;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 10px;
+            margin:  0 5px;
+            border-radius: 5px;
+            border: 1px solid rgb(94, 99, 89);
+            font-size: 14px;
+            cursor: pointer;
+            
+        }
+        .page .disablePage{
+            cursor: auto;
+            color: gray;
+        }
+        .page .active{
+            background-color: #03A9F4;
+        }
+        .test{
+            position: absolute;
+        }
+        .pa{
+            width: 50px;
+            height: 30px;
+            margin: 20px 0;
+            background-color: #03A9F4;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="page">
+
+
+    </div>
+    <div class="test">
+
+        <div class="pa"></div>
+    </div>
+    <select onclick="changeSize(this)">
+       
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+    </select>
+    <script type="text/javascript" src="../js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="./js/page.js"></script>
+    <script type="text/javascript">
+        $('.page').page({
+
+            totalNum : 100,
+            // totalPageNum : 1.,
+            pageSize : 5,
+            currentPage : 1,
+            backFn : function(currentPage){
+                console.log(currentPage)
+            }
+        })
+
+        $.extend({
+            pop: function (a) {
+                alert(a)
+            }
+        })
+
+        var a = {
+            name : 1,
+            age : 2,
+            c : 33
+        }
+        var b = {
+            name : "aaaa",
+            age : 'aaaa'
+        }
+     
+        var c = $.fn.extend(true,{},a,b)
+
+        function changeSize(ele){
+            console.log(ele.value)
+            $('.page').empty()
+
+            $('.page').page({
+
+            totalNum : 100,
+            // totalPageNum : 1.,
+            pageSize : parseInt(ele.value),
+            currentPage : 1,
+            backFn : function(currentPage){
+                console.log(currentPage)
+            }
+        })
+        }
+
+        var c = document.getElementsByClassName('page')[0];
+        $('.test').on('click','.pa',function(){
+            console.log(5)
+        })
+
+        
+    </script>
+
+</body>
+
+</html>
