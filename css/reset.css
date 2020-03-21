@@ -1,0 +1,73 @@
+/* 重置  样式 
+
+原则     1 重置需要用到的标签的样式
+         2 重置标签已有的样式，不要添加本来没有样式
+*/
+/* ------------------------------样式重置------------------------ */
+body,p,h1,h2,h3,h4{
+    margin: 0;
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+img{
+    /* Ie  */
+    border: none;
+    vertical-align: middle;
+}
+a{
+    /* 下划线 */
+    text-decoration: none;
+    color:#3c3c3c;
+}
+i{
+    /* 去除斜体 */
+    font-style: normal;
+}
+input{
+    margin: 0;
+    padding: 0;
+}
+button{
+    /* 去掉 点击后的框 */
+    outline: none;
+}
+body{
+    /* 字体大小/行高 family，                        Unicode编码（宋体）                     */
+    font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
+    /* font-family: '宋体';
+    font-family: '\5b8b\4f53';
+    font-family: SimSun;
+
+    font-family: '微软雅黑';
+    font-family: Miscorsoft YaHei; */
+    color: #3c3c3c;
+    background-color: #f4f4f4;
+}
+table{
+    /* 边框  合并 */
+    border-collapse: collapse;
+}
+th,td{
+    padding: 0;
+}
+input,textarea{
+    border: none;
+}
+input:focus{
+    outline: none;
+}
+
+.clear-float::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
+}

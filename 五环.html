@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,111 +8,136 @@
     <title>五环</title>
 
     <style>
-   body{
-       margin: 0;
-   }
-    .wrapper{
-        position:fixed;
-        width: 300px;
-        height: 200px;
-        left: 50%;
-        top: 50%;
-        margin-left: -150px;
-        margin-top: -100px;
+        body {
+            margin: 0;
+        }
 
+        .wrapper {
+            position: fixed;
+            width: 300px;
+            height: 200px;
+            left: 50%;
+            top: 50%;
+            margin-left: -150px;
+            margin-top: -100px;
+
+
+        }
+
+        .shape {
+
+            width: 100px;
+            height: 100px;
+            border: 10px solid black;
+            border-radius: 50%;
+        }
+
+        .c12 {
+            position: absolute;
+            top: 10px;
+            left: 90px;
+            border-color: red;
+            z-index: 1;
+        }
+
+        .c13 {
+            position: absolute;
+            top: 10px;
+            left: 180px;
+            border-color: rgb(111, 0, 255);
+
+        }
+
+        .c21 {
+            position: absolute;
+            top: 80px;
+            left: 50px;
+            border-color: slateblue;
+            z-index: 1;
+        }
+
+        .c22 {
+            position: absolute;
+            top: 80px;
+            left: 140px;
+            border-color: green;
+            z-index: 1;
+        }
+
+        .c11 {
+            position: absolute;
+            top: 10px
+        }
+
+        .left {
+            background-color: red;
+            height: 50px;
+            margin-right: 100px;
+
+        }
+
+        .right {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            top: 0px;
+            right: 0;
+
+            background-color: green;
+            opacity: 0.3;
+        }
+
+        .bfc {
+            width: 100px;
+            height: 100px;
+            margin-top: 100px;
+            margin-left: 100px;
+            background-color: rgb(247, 0, 255);
+            background-image: url(img/1.jpg);
+
+        }
+
+        .parent {
+            width: 200px;
+            height: 200px;
+            margin-top: 100px;
+            margin-left: 100px;
+
+            background-color: yellowgreen
+        }
+
+        p {
+            width: 200px;
+            border: 1px solid green;
+
+            white-space: nowrap;
+            /*超过宽度不换行*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+        span::before {
+            content: '你好';
+        }
+        .parent1{
+            height:300px ;
+            background: green;
+            margin-bottom: 100px;
+            padding: 100px;
+        }
+        .child{
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin-bottom: 100px;
+        }
         
-    }
-    .shape{
-
-        width: 100px;
-        height: 100px;
-        border: 10px solid black;
-        border-radius: 50%;
-    }
-    .c12{
-        position: absolute;
-        top: 10px;
-        left: 90px;
-        border-color: red;
-        z-index: 1;
-    }
-    .c13{
-        position: absolute;
-        top: 10px;
-        left: 180px;
-        border-color: rgb(111, 0, 255);
-       
-    }
-    .c21{
-        position: absolute;
-        top: 80px;
-        left: 50px;
-        border-color: slateblue;
-        z-index: 1;
-    }
-    .c22{
-        position: absolute;
-        top: 80px;
-        left: 140px;
-        border-color: green;
-        z-index: 1;
-    }
-    .c11{
-        position:absolute;
-        top: 10px
-    }
-
-    .left{
-        background-color: red;
-        height: 50px;
-        margin-right: 100px;
-
-    }
-    .right{
-        position: absolute;
-        width: 100px;
-        height: 50px;
-        top:0px;
-        right: 0;
-
-        background-color: green;
-        opacity: 0.3;
-    }
-    .bfc{
-        width: 100px;
-        height: 100px;
-        margin-top: 100px;
-        margin-left: 100px;
-        background-color: rgb(247, 0, 255);
-        background-image: url(img/1.jpg);
-      
-    }
-    .parent{
-        width: 200px;
-        height: 200px;
-        margin-top: 100px;
-        margin-left: 100px;
-
-        background-color: yellowgreen
-    }
-    p{
-        width: 200px;  
-        border: 1px solid green;
-
-        white-space: nowrap;/*超过宽度不换行*/
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-    }
-    span::before{
-        content: '你好';
-    }
     </style>
-
-
 </head>
+
 <body>
-    
+
     <div class="wrapper">
 
         <div class="shape c11"></div>
@@ -125,10 +151,16 @@
     <div class="right">两栏布局右边，，给定大小</div>
 
     <div class="parent">
-            <div class="bfc">margin塌陷 两栏布局右边，，给定大小两栏布局右边，，给定大小两栏布局右边，，给定大小两栏布局右边，，给定大小</div>
+        <div class="bfc">margin塌陷 两栏布局右边，，给定大小两栏布局右边，，给定大小两栏布局右边，，给定大小两栏布局右边，，给定大小</div>
     </div>
     <span>sadasdas</span>
     <p class="">两栏布局右边，，给定大小两栏布局右边，，给定大小两栏布局右边，，给定大小两栏布局右边，，给定大小</p>
 
+    <div class="parent1">
+        <div class="child">
+
+        </div>
+    </div>
 </body>
+
 </html>

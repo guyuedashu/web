@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>backdrop-filter 毛玻璃 </title>
+    <style>
+        html {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+            background: url('./sakura.webp');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .frosted-glass {
+            /* 文字间隔 */
+            letter-spacing: 0.75em;  
+            line-height: 7.2em;
+            width: 72%;
+            height: 36%;
+            text-align: center;
+            box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126), 0 0.9px 1.7px rgba(0, 0, 0, 0.179), 0 1.8px 3.5px rgba(0, 0, 0, 0.224), 0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="frosted-glass clear">
+        <h1>Sakura</h1>
+    </div>
+
+</body>
+
+</html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>布局，圣杯模式</title>
+    <title>双飞翼</title>
     <style>
-        * {
+      
+        *{
             margin: 0;
             padding: 0;
         }
@@ -17,49 +17,46 @@
             text-align: center;
         }
         #container{
-            /* width: 100%; */
-            padding: 0 150px 0 200px;
             height: 500px;
             background-color:gold;
         }
         .column{
             float: left;
             height: 100%;
-            position: relative;
+      
         }
         #center{
             width: 100%;
             background-color: hotpink;
         }
-
+ 
         #right{
-            left: 150px;
+          
             width:150px;
             background-color: blue;
             margin-left: -150px;
-
+ 
         }
         #left{
-            left: -200px;
+            /* left: -200px; */
             width:200px;
             background-color: royalblue;
             margin-left: -100%;
-
+ 
         }
-
+        .sub{
+            margin: 0 150px 0 200px;
+        }
+ 
     </style>
-
 </head>
-
 <body>
         <div id="header">header</div>
         <div id="container">
-          <div id="center" class="column">center</div>
+          <div id="center" class="column"><div class="sub">center</div></div>
           <div id="left" class="column">left</div>
           <div id="right" class="column">right</div>
         </div>
         <div id="footer">footer</div>
-
 </body>
-
 </html>

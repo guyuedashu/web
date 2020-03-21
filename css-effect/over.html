@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>交错动画</title>
+    <link rel="stylesheet" href="./tools.css">
+    <style>
+        .item{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 20px;
+            float: left;
+            background-color: blanchedalmond;
+        }
+
+        .item::before{
+            content: '';
+            display:block;
+            width:100%;
+            height: 100%;
+            border-radius: inherit;
+            animation: wave 2s ease-out infinite;
+            background-color: inherit;
+            animation-delay: inherit;
+        }
+
+        .item:nth-child(1){
+            background-color: #7ef9ff;
+            animation-delay: .2s;
+        }
+        .item:nth-child(2){
+            background-color: #89cff0;
+            animation-delay: .4s;
+        }
+        .item:nth-child(3){
+            background-color: #4682b4;
+            animation-delay: .6s;
+        }
+        .item:nth-child(4){
+            background-color: #0f52ba;
+            animation-delay: .8s;
+        }
+        .item:nth-child(5){
+            background-color: #1f3453;
+            animation-delay: 1s;
+        }
+
+        @keyframes wave {
+            10%,
+            50%,
+            75% {
+                transform: scale(2.5);
+            }
+
+            80%,
+            100% {
+                opacity: 0;
+            }
+        }
+        .re{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        .le{
+            position: absolute;
+            width: 100%;
+            height:100%;;
+            background-color: green;
+        }
+        .form-control{
+            background-color: cadetblue;
+        }
+
+        .wrapper{
+            display: inline-block;
+            position: relative;
+            padding: 50px;
+            border: 20px solid red;
+        }
+        p{
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lodding clear">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+
+    <div class="clear">
+    </div>
+</body>
+<script>
+function downloadFile(fileName, content) {
+  const aTag = document.createElement('a');
+  const blob = new Blob([content]);
+ 
+  aTag.download = fileName;
+  aTag.style = "display: none";
+  aTag.href = URL.createObjectURL(blob);
+  document.body.appendChild(aTag);
+  aTag.click();
+ 
+  setTimeout(function () {
+    document.body.removeChild(aTag);
+    window.URL.revokeObjectURL(blob);
+  }, 100);
+}
+
+</script>
+</html>

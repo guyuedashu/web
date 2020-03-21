@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>overflow  attr()</title>
+    <link rel="stylesheet" href="./tools.css">
+    <style>
+        ul li {
+            margin: 20px 0;
+        }
+
+        ul li a{
+            display: block;
+            overflow: hidden;
+        }
+
+        ul li a span{
+            position:relative;
+            display: inline-block;;
+            transition: 0.3s;
+            
+        }
+
+        ul li a span::before{
+            position: absolute;
+            display: inline-block;;
+            transform: translateY(100%);
+            content: attr(data-text);
+
+        }
+        
+        ul li a:hover span{
+            color: red;
+            transform: translateY(-100%);
+        }
+    </style>
+</head>
+<body>
+    <ul class="clear">
+        <li ><a href="#" data-attr="Home">Home</a></li>
+        <li ><a href="#" data-attr="Tags">Tags</a></li>
+        <li ><a href="#" data-attr="Categories">Categories</a></li>
+        <li ><a href="#" data-attr="About">About</a></li>
+        <li><a href="#"  data-attr="你好，css">你好，css</a></li>
+    </ul>
+
+
+    <script type="text/javascript">
+     
+      var as = document.querySelectorAll('ul li a');
+  
+    // ES6 写法 
+      as.forEach((current,i,arr) => {
+        var texts = current.textContent;
+        texts = texts.split('');
+        current.textContent = '';
+        texts.forEach((value,index) => {
+            var el = document.createElement('span');
+            el.textContent = value;
+            el.dataset.text = value;
+            el.style.transitionDelay = (index * 0.05) + 's';
+            current.append(el);
+        });
+      });
+
+    
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .demo {
+            width: 500px;
+            height: 500px;
+        }
+        #name{
+            color: green;
+        }
+
+        #name ~ label{
+            color: brown;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="demo">
+
+        <label >  
+            <input type="radio" name="sex">男
+        </label>
+        <label id="name" >  
+            <input type="radio" name="sex">女
+        </label>
+        <label >  
+           xxxxx
+        </label>
+        <label >  
+           ssssss
+        </label>
+        datalist 浏览器选择：<input type="text" list="userAgent">
+        <datalist id="userAgent">
+            <option value="Chrome">谷歌</option>
+            <option value="IE">IE</option>
+            <option value="Chrome">谷歌</option>
+            <option value="Chrome">谷歌</option>
+            <option value="Chrome">谷歌</option>
+        </datalist>
+
+        select 浏览器选择 <select name="" id="">
+            <option value="Chrome">谷歌</option>
+            <option value="IE">IE</option>
+            <option value="Chrome">谷歌</option>
+            <option value="Chrome">谷歌</option>
+            <option value="Chrome">谷歌</option>
+        </select>
+    </div>
+
+
+
+    <input type="date">
+    <input type="search">
+    <!-- <object data="../js/7.swf" type=""></object> -->
+
+    <!-- <script type="text/javascript" src="../js/jq.js"></script> -->
+
+
+    <script>
+        function n(n) {
+            //  1+ 1 +2 + 3 + 5
+            var n3 = 2,n1 = 1,n2 = 1;
+            if (n > 2) {
+                for (var i = 2; i < n; i++) {
+                    n3 = n1 + n2;
+                    n1 = n2;
+                    n2 = n3;
+                }
+            }
+            return n3;
+        }
+
+        function n1(n) {
+            //  1+ 1 +2 + 3 + 5
+
+            if(n <= 2){
+                return 1;
+            }
+            return n1(n-1) +n1(n-2);
+        }
+        var  test ;
+
+        function test(n,n1) {
+            n1 = 555;
+           console.log(arguments[1])
+           console.log(n1)
+
+           bbbb = 888888888888888
+        }
+        console.log(test());
+
+
+        var input = $('#xxx')[0];
+        var div = $('#a')[0];
+        var label = $('#b')[0];
+
+        console.log(div.dataset.nameV)
+
+        var c = $('.demo').form({
+            fieldList: [
+                {
+                    name: 'abc.name',
+                    label: '姓名',
+                },
+                {
+                    name: 'abc.desc',
+                    label: '描述',
+                    option: {
+                        mode: {
+                            name: 'time',
+                            call: function () {
+                                alert();
+                            }
+                        }
+                    }
+
+                },
+                {
+                    name: 'abc.desc',
+                    label: '描述',
+                    option: {
+                        mode: {
+                            name: 'address',
+                            call: function (a, b) {
+                                console.log(a, b)
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'abc.name',
+                    label: '姓名',
+                },
+                {
+                    name: 'abc.desc',
+                    label: '描述',
+                    isTextArea: {
+                        rows: 5
+                    }
+                }
+
+            ]
+        });
+
+
+    </script>
+</body>
+
+</html>

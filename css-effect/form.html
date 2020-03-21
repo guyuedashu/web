@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单优化</title>
+    <link rel="stylesheet" href="./tools.css">
+    <style>
+        p {
+            font-weight: bold;
+            color: #f1faee;
+        }
+
+        .field_list {
+            /* display: inline-block; */
+            padding: 0 75px 10px 30px;
+            background: #162740;
+            border: transparent;
+            color: #f1faee;
+
+        }
+
+        .field_list .field_list_title {
+            padding: 3px 6px;
+            background-color: #264456;
+
+        }
+
+        .field_list label .check {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #f1faee;
+            position: absolute;
+        }
+
+        .field_list label {
+            position: relative;
+            margin: 40px 0;
+            display: block;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .field_list label input[type='checkbox'] {
+            /* display: none; */
+
+        }
+
+        .field_list label input[type='checkbox']:checked+.check {
+            width: 25px;
+            height: 15px;
+            border-top: transparent;
+            border-right: transparent;
+            transform: rotate(-45deg);
+            transition: 0.2s;
+        }
+
+        .field_list label span {
+            position: relative;
+            top: -3px;
+            left: 40px;
+        }
+
+        .field_list label span::before {
+            position: absolute;
+            content: "";
+            display: block;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #f1faee;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s;
+        }
+        .field_list label input[type='checkbox']:checked ~ span::before{
+            transform: scaleX(1);
+
+            color: darkolivegreen;
+            transform-origin: left;
+        }
+        .clear ~ p{
+            background-color: red;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <p>fieldset 元素可将表单内的相关元素分组。</p>
+    <p>&ltfieldset&gt 标签将表单内容的一部分打包，生成一组相关表单的字段。 &ltfieldset&gt 标签没有必需的或唯一的属性。</p>
+
+    <p>当一组表单元素放到 &ltfieldset&gt 标签内时，浏览器会以特殊方式来显示它们，它们可能有特殊的边界、3D 效果，或者甚至可创建一个子表单来处理这些元素。</p>
+
+    <p>legend 元素为 fieldset 元素定义标题（caption）。</p>
+
+    <div class="clear">
+        <form action="">
+            <fieldset class="field_list">
+                <legend class="field_list_title">图例，我的表单</legend>
+                <label for="hobby-1">
+                    <input type="checkbox" name="hobby" id="hobby-1">
+                    <i class="check"></i>
+                    <span>Watch awesome bangumi</span>
+                </label>
+                <label for="hobby-2">
+                    <input type="checkbox" name="hobby" id="hobby-2">
+                    <i class="check"></i>
+                    <span>元素定义标题</span>
+                </label>
+                <label for="hobby-3">
+                    <input type="checkbox" name="hobby" id="hobby-3">
+                    <i class="check"></i>
+                    <span>生成一组相关表单的字段。</span>
+                </label>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>

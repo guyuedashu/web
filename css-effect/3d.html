@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>伪3D动画,文字属性 text-shadow、text-stroke</title>
+    <link rel="stylesheet" href="./tools.css">
+    <style>
+        .loading {
+            color: #fff;
+            font-size: 5em;
+            font-weight: bold;
+            text-shadow: -9px -2px blue, 0 0 16px red;
+            /* animation: dance 1s ease infinite alternate ; */
+
+        }
+
+        html {
+            background-color: #2980b9;
+        }
+
+        @keyframes dance {
+            100% {
+                transform: translateY(20%);
+                text-shadow: -9px -2px blue, 0 0 red;
+            }
+        }
+
+        /* --------------- */
+        .clear ul li {
+            --fill-color: #FFC107;
+            margin: 10px 0;
+        }
+
+        .clear ul li>a {
+            font-size: 3em;
+            -webkit-text-stroke: 2px var(--fill-color);
+            color: transparent;
+            font-weight: bold;
+            transition: 0.5s linear;
+            background: linear-gradient(90deg, var(--fill-color) 0%, var(--fill-color) 100%);
+            background-size: 0;
+            background-position: left;
+            /* 避免 直接填充 */
+            background-repeat: no-repeat;
+            /*  能将背景裁剪成文字的前景色 */
+            -webkit-background-clip: text;
+        }
+
+        .clear ul li>a:hover {
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clear loading">
+        LOADING
+    </div>
+
+    <div class="clear">
+        <p>background-clip:text 能将背景裁剪成文字的前景色，常用来和color: transparent配合生成渐变文本</p>
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ME</a></li>
+            <li><a href="#">胡歌</a></li>
+            <li><a href="#">帅</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

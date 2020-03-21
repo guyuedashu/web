@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文字特效</title>
+    <link rel="stylesheet" href="./tools.css">
+    <style>
+        p {
+            color: #fff;
+            font-size: 28px;
+            line-height: 1.8;
+            font-weight: bold;
+            /* white-space: pre; */
+        }
+
+
+        p span {
+            display: inline-block;
+            font-family: Lora, serif;
+            animation: landIn 1s ease-out both;
+        }
+
+        @keyframes landIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ------- ----------------- */
+        .center::before,
+        .center::after {
+            top: 0;
+            position: absolute;
+            content: '';
+            display: inline-block;
+            width: 2px;
+            height: 40px;
+            background-color: #fff;
+            opacity: 0;
+        }
+
+        .center::before {
+            left: 50%;
+            animation: left 1.5s cubic-bezier(0.7, -0.6, 0.3, 1.5) forwards;
+        }
+
+        .center::after {
+            right: 50%;
+            animation: right 1.5s cubic-bezier(0.7, -0.6, 0.3, 1.5) forwards;
+        }
+
+        .center {
+            position: relative;
+            color: #fff;
+            font-size: 28px;
+            line-height: 1.8;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .center span {
+            opacity: 0;
+            transform: scale(0);
+            display: inline-block;
+            margin-right: 5px;
+            animation: fadeIn 1.5s cubic-bezier(0.7, -0.6, 0.3, 1.5) forwards;
+        }
+
+        @keyframes left {
+            to {
+                left: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes right {
+
+            to {
+                right: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* --------------------- */
+        :root {
+            --hue: 171;
+            --border: 160;
+            --ease-in-duration: .25s
+        }
+
+        .wrapper {
+            color: hsl(var(--hue), 100%, 41%);
+
+        }
+
+        .hover {
+            position: relative;
+            color: hsl(var(--hue), 100%, 41%);
+
+            font-size: 22px;
+            /* border: 1px solid hsl(var(--border), 100%, 41%); */
+            text-align: center;
+            width: 600px;
+            height: 100px;
+        }
+
+        .hover .top {
+            position: absolute;
+            top: 0;
+            width: 600px;
+            height: 1px;
+            background-color: hsl(var(--hue), 100%, 41%);
+            transform: scaleX(0);
+            transition: var(--ease-in-duration) cubic-bezier(1, 0, 0.8, 0);
+            transform-origin: left;
+
+        }
+
+        .hover:hover div {
+            transform: scaleX(1);
+            transform: scaleY(1);
+        }
+
+        .hover .bottom {
+            position: absolute;
+            top: 100px;
+            width: 600px;
+            height: 1px;
+            background-color: hsl(var(--hue), 100%, 41%);
+            transform: scaleX(0);
+            transition: var(--ease-in-duration) cubic-bezier(0.2, 1, 0.2, 1);
+            transform-origin: left;
+
+        }
+
+        .hover .left {
+            position: absolute;
+            height: 100px;
+            left: 0;
+
+            width: 1px;
+            background-color: hsl(var(--hue), 100%, 41%);
+            transform: scaleY(0);
+            transition: var(--ease-in-duration) cubic-bezier(1, 0, 0.8, 0);
+            transform-origin: bottom;
+        }
+
+        .hover .right {
+            left: 600px;
+
+            position: absolute;
+            height: 100px;
+            width: 1px;
+            background-color: hsl(var(--hue), 100%, 41%);
+            transform: scaleY(0);
+            transition: var(--ease-in-duration) cubic-bezier(0.2, 1, 0.2, 1);
+            transform-origin: bottom;
+        }
+
+        .wrapper:hover span {
+
+            opacity: 0;
+            transform: translateY(-10%);
+            transition: 0.25s ease-out;
+        }
+
+        .wrapper span {
+
+            display: block;
+            transition: 0.75s 0.1s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .wrapper::after {
+            display: block;
+            opacity: 0;
+            content: attr(data-hov);
+            width: 100px;
+            transform: translateY(0);
+        }
+
+        .wrapper:hover::after {
+            opacity: 1;
+            transform: translateY(-99%);
+            transition: 0.25s ease-out;
+        }
+
+        /* 333333333333333333333333333333 伪类实现多边框  ***************************/
+        button {
+            background-color: transparent;
+            border: none;
+            position: relative;
+            padding: 50px 300px;
+        }
+
+        button span{
+            display: block;
+            color: blue;
+        }
+
+        button .more-group:nth-child(1) {
+            left: -8px;
+            padding: 0 8px;
+        }
+
+        button .more-group:nth-child(2) {
+            top: -8px;
+            padding: 8px 0;
+        }
+
+        button .more-group:nth-child(3) {
+            top: -4px;
+            left: -4px;
+            padding: 4px 4px;
+        }
+
+        .more-group {
+            position: absolute;
+            color: hsl(var(--hue), 100%, 41%);
+            top: 0;
+            left: 0;
+            font-size: 22px;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            border: 1px solid hsla(var(--hue), 100%, 41%, 0.35);
+        }
+
+        .more-group .top {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            height: 1px;
+            width: 100%;;
+            background-color: hsla(var(--hue), 100%, 41%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: 0.25s  cubic-bezier(1, 0, 0.8, 0);
+        }
+
+        .more-group .bottom {
+            position: absolute;
+            bottom: 0;;
+            left: 0;
+            height: 1px;
+            width: 100%;
+            background-color: hsla(var(--hue), 100%, 41%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: 0.65s  0.25s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .more-group .left {
+            top: 0;
+            position: absolute;
+            left: 0;
+            height:  100%;
+            width: 1px;
+            background-color: hsla(var(--hue), 100%, 41%);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: 0.65s  0.25s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .more-group .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 1px;
+            background-color: hsla(var(--hue), 100%, 41%);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: 0.25s cubic-bezier(1, 0, 0.8, 0);
+        }
+
+        button:hover .more-group div{
+            transform: scaleY(1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clear">
+        <p>用JS分割---从左边渐变</p>
+        <p class="landIn">Ano hi watashitachi mada shiranai no Fushigi no monogatari desu. span 元素和文本一样margin transform
+            属性对其无效</p>
+    </div>
+
+    <div class="clear">
+        <p>用JS分割文本---从中间渐变</p>
+        <div class="center">sword art online</div>
+    </div>
+
+    <div class="clear">
+        <p>伪类实现边框 css var()函数的用法 可以声明变量 在一个属性值多次被使用 可使用其替代</p>
+        <div data-hov="Start" class="wrapper">
+            <div class="hover">
+                <div class="top"></div>
+                <div class="bottom"></div>
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <span>Start</span>
+        </div>
+    </div>
+
+    <div class="clear">
+        <p>伪类实现多边框 </p>
+        <button class="">
+            <div class="more-group">
+                <div class="top"></div>
+                <div class="bottom"></div>
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="more-group">
+                <div class="top"></div>
+                <div class="bottom"></div>
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <div class="more-group">
+                <div class="top"></div>
+                <div class="bottom"></div>
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <span>Start</span>
+        </button>
+    </div>
+</body>
+<script>
+
+    var textContent = document.getElementsByClassName('landIn')[0];
+    var textArr = textContent.textContent.split('');
+    textContent.innerHTML = '';
+    for (var i = 0; i < textArr.length; i++) {
+        var span = document.createElement('span');
+        span.textContent = textArr[i];
+        span.style.animationDelay = (i * 0.05) + 's';
+        textContent.append(span);
+    }
+    /************************************************/
+    center()
+    function center() {
+        var textContent = document.getElementsByClassName('center')[0];
+        var textArr = textContent.textContent.split(''), middle = textArr.length / 2;
+        textContent.innerHTML = '';
+        for (var i = 0; i < textArr.length; i++) {
+            var span = document.createElement('span');
+            span.textContent = textArr[i];
+            span.style.animationDelay = Math.abs((i - middle) * 0.05) + 's';
+            textContent.append(span);
+        }
+    }
+
+
+
+</script>
+
+</html>

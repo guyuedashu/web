@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>伪元素,划过效果,overflow障眼法</title>
+    <link rel="stylesheet" href="./tools.css">
+    <style>
+        html {
+            color: #fff;
+        }
+
+        h1.slide-bar::before {
+            background-color: burlywood;
+        }
+
+        .slide-bar::before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: slide-in-out 2s cubic-bezier(0.75, 0, 0, 1) forwards;
+        }
+
+        p.slide-bar::before {
+            background-color: rgb(40, 136, 173);
+            transition-delay: 2s;
+        }
+
+        .slide-bar {
+            position: relative;
+            width: 250px;
+            height: 30px;
+            color: transparent;
+            animation: fill-text-white 2s 1.6s forwards;
+        }
+
+        @keyframes fill-text-white {
+            to {
+                color: red;
+            }
+        }
+
+        @keyframes slide-in-out {
+            50% {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            50.1% {
+                transform-origin: right;
+            }
+
+            100% {
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+        }
+
+        /* ---------------------- */
+        .hover {
+            position: relative;
+            font-family: Arial;
+            padding: 20px 50px;
+            color: #fff;
+            border: 1px solid hsl(187, 100%, 41%);
+            overflow: hidden;
+        }
+
+        .hover::before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, hsla(187, 100%, 41%, 0.5), transparent);
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+        .hover:hover{
+            box-shadow: 0 0 20px 10px hsla(187, 100%, 41%, 0.5);
+        }
+        .hover:hover::before{
+            transform: translateX(100%);
+        }
+    </style>
+
+</head>
+
+<body>
+    <header class="clear">
+        <h1 class="title slide-bar">I'm alphardex.</h1>
+        <p class="subtitle slide-bar">A CSS Wizard</p>
+    </header>
+    <div class="clear">
+        <button class="hover">放在我身上</button>
+    </div>
+</body>
+
+</html>
